@@ -4,7 +4,7 @@ include "connection.php";
 header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: *');
 
-$data = json_decode(file_get_contents("php://input"), true);  //Koi data Arraha han ossy Fetch krna use hote han file_gets_content like form se data araha ho api me
+$data = json_decode(file_get_contents("php://input"), true);  
 $user_id = $data['uid'];
 
 $sql = "SELECT * FROM user WHERE id = {$user_id}";
