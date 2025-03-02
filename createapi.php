@@ -4,14 +4,12 @@ include "connection.php";
 header('Content-Type: application/json');
 header('Access-Control-Allow-Origin:*');
 header('Access-Control-Allow-Methods: POST');
-header('Access-Control-Allow-Headers:Access-Control-Allow-Headers ,
-Content-Type,Access-Control-Allow-Methods, 
-Authorization , X-Requested-With');
+header('Access-Control-Allow-Headers: Access-Control-Allow-Headers ,Content-Type, Access-Control-Allow-Methods, Authorization , X-Requested-With');
 
 $data = json_decode(file_get_contents("php://input"), true);
-$user_name = $data["sname"];
-$user_email = $data["semail"];
-$user_description = $data["sdescription"];
+$user_name = $data["uname"];
+$user_email = $data["uemail"];
+$user_description = $data["udescription"];
 
 $sql = "INSERT INTO user (name,email,description) VALUES ('{$user_name}','{$user_email}','{$user_description}')";
 
