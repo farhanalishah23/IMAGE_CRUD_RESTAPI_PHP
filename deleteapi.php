@@ -13,9 +13,9 @@ $id = $data["uid"];
 $sql = "DELETE FROM user WHERE id = '{$id}'";
 
 if (mysqli_query($conn, $sql)) {
-    echo json_encode(array("Message" => "User Data Deleted Successfully.", "status" => true));
+    echo json_encode(array("message" => "User Data Deleted Successfully.", "status" => true));
 } else {
-    echo json_encode(array("Message" => "User Data not found.", "status" => false));
+    echo json_encode(array("message" => "User Data not found.", "status" => false));
 }
 
 ?>
