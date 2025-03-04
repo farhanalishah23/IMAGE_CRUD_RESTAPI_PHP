@@ -1,10 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Form with List</title>
-    <style>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>User Form with List</title>
+        <link rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.1/css/bootstrap.min.css"
+            integrity="sha512-Ez0cGzNzHR1tYAv56860NLspgUGuQw16GiOOp/I2LuTmpSK9xDXlgJz3XN4cnpXWDmkNBKXR/VDMTCnAaEooxA=="
+            crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <style>
         body {
             font-family: Arial, sans-serif;
             background-color: #f2f2f2;
@@ -53,81 +57,151 @@
         .user-list {
             margin-top: 30px;
         }
-        .user-list ul {
-            list-style-type: none;
-            padding: 0;
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
         }
-        .user-list li {
-            background-color: #f9f9f9;
-            padding: 15px;
-            margin-bottom: 10px;
+        th, td {
+            padding: 12px;
+            text-align: left;
             border: 1px solid #ddd;
-            border-radius: 4px;
+        }
+        th {
+            background-color: #f2f2f2;
         }
         .user-list img {
             width: 50px;
             height: 50px;
             border-radius: 50%;
-            margin-right: 10px;
         }
-        .user-item {
-            display: flex;
-            align-items: center;
+        .delete-btn{
+            padding: 10px;
+            background-color: red;
+            text-decoration: none;
         }
-        .user-info {
-            flex: 1;
+        .edit-btn{
+            padding: 10px;
+            background-color: rgb(64, 255, 0);
+            text-decoration: none;
         }
-    </style>
-</head>
-<body>
 
-<div class="container">
-    <h2>Add User</h2>
-    <form action="" method="POST" enctype="multipart/form-data">
-        <div class="form-group">
-            <label for="uname">Name:</label>
-            <input type="text" id="uname" name="uname" placeholder="Enter name" required>
-        </div>
-        <div class="form-group">
-            <label for="uemail">Email:</label>
-            <input type="email" id="uemail" name="uemail" placeholder="Enter email" required>
-        </div>
-        <div class="form-group">
-            <label for="udescription">Description:</label>
-            <textarea id="udescription" name="udescription" placeholder="Enter description" required></textarea>
-        </div>
-        <div class="form-group">
-            <label for="image">Upload Image:</label>
-            <input type="file" id="image" name="image" required>
-        </div>
-        <div class="form-group">
-            <button type="submit">Add User</button>
-        </div>
-    </form>
-</div>
+        .delete-btn:hover{
+            cursor: pointer;
+        }
+        .edit-btn:hover{
+            cursor: pointer;
+        }
+        </style>
+    </head>
+    <body>
 
-<div class="user-list">
-    <h2>Users List</h2>
-    <ul>
-        <!-- Static Example of Users -->
-        <li class="user-item">
-            <img src="https://via.placeholder.com/50" alt="User Image">
-            <div class="user-info">
-                <strong>Name:</strong> John Doe <br>
-                <strong>Email:</strong> john@example.com <br>
-                <strong>Description:</strong> A passionate developer <br>
-            </div>
-        </li>
-        <li class="user-item">
-            <img src="https://via.placeholder.com/50" alt="User Image">
-            <div class="user-info">
-                <strong>Name:</strong> Jane Smith <br>
-                <strong>Email:</strong> jane@example.com <br>
-                <strong>Description:</strong> A creative designer <br>
-            </div>
-        </li>
-    </ul>
-</div>
+        <div class="container">
+            <h2>Add User</h2>
+            <form action method="POST" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="uname">Name:</label>
+                    <input type="text" id="uname" name="uname"
+                        placeholder="Enter name" required>
+                </div>
+                <div class="form-group">
+                    <label for="uemail">Email:</label>
+                    <input type="email" id="uemail" name="uemail"
+                        placeholder="Enter email" required>
+                </div>
+                <div class="form-group">
+                    <label for="udescription">Description:</label>
+                    <textarea id="udescription" name="udescription"
+                        placeholder="Enter description" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="image">Upload Image:</label>
+                    <input type="file" id="image" name="image" required>
+                </div>
+                <div class="form-group">
+                    <button type="submit">Add User</button>
+                </div>
+            </form>
+        </div>
 
-</body>
+        <div class="user-list">
+            <h2>Users List</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Image</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Description</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="load-user-data">
+                </tbody>
+            </table>
+        </div>
+        
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.1/js/bootstrap.min.js"
+            integrity="sha512-EKWWs1ZcA2ZY9lbLISPz8aGR2+L7JVYqBAYTq5AXgBkSjRSuQEGqWx8R1zAX16KdXPaCjOCaKE8MCpU0wcHlHA=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <!-- Modal -->
+        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static"
+            data-bs-keyboard="false" tabindex="-1"
+            aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <!-- <form>
+                        <h2>Edit User Data</h2>
+                        <label for="user_name">Name:</label><br>
+                        <input type="text" id="user_name"><br>
+                        <label for="user_email">Email:</label><br>
+                        <input type="email" id="user_email"><br>
+                        <label for="user_description">Description:</label><br>
+                        <textarea id="user_description"><br>
+                        <button type="submit">Update</button>
+                    </form> -->
+      </div>
+    </div>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+        <script>
+            $(document).ready(function(){
+                function loadTableData(){
+                    $.ajax({
+                        url:'http://localhost/phpapi/IMAGE_CRUD_RESTAPI_PHP/fetchapi.php', 
+                        type: "GET",
+                        success: function(data){
+                            if(data.status == false){
+                                $("#load-user-data").append("<tr><td colspan='4'>" + data.message + "</td></tr>");
+                            } else {
+                                $.each(data, function(key, value) {
+                                    $("#load-user-data").append(
+                                     "<tr>"+
+                                        "<td><img src='"+value.image+"' alt = 'User Image'></td>"+
+                                        "<td>"+value.name+"</td>"+
+                                        "<td>"+value.email+"</td>"+
+                                        "<td>"+value.description+"</td>"+
+                                        "<td><a class='edit-btn' data-eid='"+value.id+"'>EDIT USER</a> <a class='delete-btn' data-id='"+value.id+"'>DELETE USER</a></td>"+
+                                        "</tr>"
+                                    );
+                                });
+                            }
+                        },
+                    error:function(error){
+                        console.log(error.message)
+                    }
+                    });
+                }
+
+                loadTableData(); 
+
+                $(document).on("click",".edit-btn",function(){
+                    $(".modal").show();
+                })
+            });
+        </script>
+
+    </body>
 </html>
