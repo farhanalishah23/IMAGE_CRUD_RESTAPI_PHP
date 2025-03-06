@@ -63,7 +63,7 @@ This project includes the following 5 APIs:
 Clone the repository to your local machine using Git:
 
 ```bash
-git clone https://github.com/yourusername/php-crud-api-ajax.git
+git clone https://github.com/farhanalishah23/IMAGE_CRUD_RESTAPI_PHP.git
 
 
 
