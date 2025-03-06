@@ -1,6 +1,8 @@
 # PHP CRUD API with AJAX and Image Handling
 
 This project provides a set of 5 APIs for managing user data along with image uploads using **PHP** and **AJAX**. The APIs include full **CRUD** (Create, Read, Update, Delete and Search) functionality for users, allowing users to manage their profile information and associated images. The system uses AJAX for smooth client-server communication without page reloads.
+![PHP Logo](https://upload.wikimedia.org/wikipedia/commons/2/27/PHP_logo.png)  
+![AJAX Logo](https://upload.wikimedia.org/wikipedia/commons/a/a7/AJAX_logo.png)
 
 ## Features
 
