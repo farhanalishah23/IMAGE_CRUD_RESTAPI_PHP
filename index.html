@@ -62,21 +62,24 @@
             integrity="sha512-EKWWs1ZcA2ZY9lbLISPz8aGR2+L7JVYqBAYTq5AXgBkSjRSuQEGqWx8R1zAX16KdXPaCjOCaKE8MCpU0wcHlHA=="
             crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <!-- Modal -->
-        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static"
-            data-bs-keyboard="false" tabindex="-1"
-            aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal fade" id="modal" >
+            <button type="button" class="btn-close" aria-label="Close"></button>
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <!-- <form>
+                    <form>
                         <h2>Edit User Data</h2>
-                        <label for="user_name">Name:</label><br>
-                        <input type="text" id="user_name"><br>
-                        <label for="user_email">Email:</label><br>
-                        <input type="email" id="user_email"><br>
-                        <label for="user_description">Description:</label><br>
-                        <textarea id="user_description"><br>
+                        <input type="hidden" id="id">
+                        <label >Name:</label><br>
+                        <input type="text" id="name"><br>
+                        <label>Email:</label><br>
+                        <input type="email" id="email"><br>
+                        <label >Description:</label><br>
+                        <input type="text" id="description"><br>
+                        <label>User Image</label><br>
+                        <input type="file"><br>
+                        <img id="image-preview" height="70" alt="User Image">
                         <button type="submit">Update</button>
-                    </form> -->
+                    </form>
       </div>
     </div>
   </div>
@@ -84,6 +87,20 @@
 
         <script>
             $(document).ready(function(){
+                $(document).on("click",".edit-btn",function(){
+                    var id = $(this).data("id");
+                    var name = $(this).data("name");
+                    var email = $(this).data("email");
+                    var description = $(this).data("description");
+                    var image = $(this).data("image");
+                    $("#id").val(id);
+                    $("#name").val(name);
+                    $("#email").val(name);
+                    $("#description").val(description);
+                    $("#image-preview").attr("src",image);
+                    $("#modal").modal('show');
+                })
+                
                 function loadTableData(){
                     $.ajax({
                         url:'http://localhost/phpapi/IMAGE_CRUD_RESTAPI_PHP/fetchapi.php', 
@@ -99,9 +116,10 @@
                                         "<td>"+value.name+"</td>"+
                                         "<td>"+value.email+"</td>"+
                                         "<td>"+value.description+"</td>"+
-                                        "<td><a class='edit-btn' data-eid='"+value.id+"'>EDIT USER</a> <a class='delete-btn' data-id='"+value.id+"'>DELETE USER</a></td>"+
+                                        "<td><button class='edit-btn' data-id='"+value.id+"' data-name='"+value.name+"' data-email='"+value.email+"' data-description='"+value.description+"' data-image='"+value.image+"'>EDIT USER</button> <button class='delete-btn' data-id='"+value.id+"'>DELETE USER</button></td>"+
                                         "</tr>"
                                     );
+                                    $('#modal').modal('hide');
                                 });
                             }
                         },
@@ -113,9 +131,7 @@
 
                 loadTableData(); 
 
-                $(document).on("click",".edit-btn",function(){
-                    $(".modal").show();
-                })
+              
             });
         </script>
 
